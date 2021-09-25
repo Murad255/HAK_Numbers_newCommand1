@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" id="Definitions_0q9nkpw" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="4.9.0">
+  <bpmn:process id="Process_Lift" isExecutable="true">
+    <bpmn:startEvent id="StartEvent_1">
+      <bpmn:outgoing>Flow_0smuae0</bpmn:outgoing>
+      <bpmn:messageEventDefinition id="MessageEventDefinition_0n66hou" messageRef="Message_0yrydpk" />
+    </bpmn:startEvent>
+    <bpmn:scriptTask id="Activity_1p6i7zj" name="задаём точку" scriptFormat="JavaScript">
+      <bpmn:incoming>Flow_0smuae0</bpmn:incoming>
+      <bpmn:outgoing>Flow_0u3hoz1</bpmn:outgoing>
+      <bpmn:script>execution.setVariable("nextGoal", "BeforeS1");
+execution.setVariable("nameExecutor", "RobotOmronCar");
+execution.setVariable("nextMacro", "connect");
+execution.setVariable("isUp", "true");
+execution.setVariable("liftLevel", "450");</bpmn:script>
+    </bpmn:scriptTask>
+    <bpmn:sequenceFlow id="Flow_0smuae0" sourceRef="StartEvent_1" targetRef="Activity_1p6i7zj" />
+    <bpmn:serviceTask id="Activity_0cd95y7" name="установить этаж" camunda:delegateExpression="${liftSetLevel}">
+      <bpmn:incoming>Flow_0u3hoz1</bpmn:incoming>
+      <bpmn:outgoing>Flow_00u9jri</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:serviceTask id="Activity_1b29j3x" name="выгрузка" camunda:delegateExpression="${liftUp}">
+      <bpmn:incoming>Flow_00u9jri</bpmn:incoming>
+      <bpmn:outgoing>Flow_061mz9g</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:serviceTask id="Activity_1hewiu8" name="погрузка" camunda:delegateExpression="${liftDown}">
+      <bpmn:incoming>Flow_061mz9g</bpmn:incoming>
+      <bpmn:outgoing>Flow_0n3kcor</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_061mz9g" sourceRef="Activity_1b29j3x" targetRef="Activity_1hewiu8" />
+    <bpmn:sequenceFlow id="Flow_0u3hoz1" sourceRef="Activity_1p6i7zj" targetRef="Activity_0cd95y7" />
+    <bpmn:sequenceFlow id="Flow_00u9jri" sourceRef="Activity_0cd95y7" targetRef="Activity_1b29j3x" />
+    <bpmn:endEvent id="Event_0icsmm2">
+      <bpmn:incoming>Flow_043sy7v</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="Flow_0n3kcor" sourceRef="Activity_1hewiu8" targetRef="Activity_1bz4zki" />
+    <bpmn:serviceTask id="Activity_1bz4zki" name="установить этаж 0" camunda:delegateExpression="${liftSetZeroLevel}">
+      <bpmn:incoming>Flow_0n3kcor</bpmn:incoming>
+      <bpmn:outgoing>Flow_043sy7v</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_043sy7v" sourceRef="Activity_1bz4zki" targetRef="Event_0icsmm2" />
+  </bpmn:process>
+  <bpmn:message id="Message_0yrydpk" name="Message_TestLift" />
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Process_Lift">
+      <bpmndi:BPMNEdge id="Flow_043sy7v_di" bpmnElement="Flow_043sy7v">
+        <di:waypoint x="910" y="117" />
+        <di:waypoint x="962" y="117" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0n3kcor_di" bpmnElement="Flow_0n3kcor">
+        <di:waypoint x="780" y="117" />
+        <di:waypoint x="810" y="117" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_00u9jri_di" bpmnElement="Flow_00u9jri">
+        <di:waypoint x="490" y="117" />
+        <di:waypoint x="530" y="117" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0u3hoz1_di" bpmnElement="Flow_0u3hoz1">
+        <di:waypoint x="350" y="117" />
+        <di:waypoint x="390" y="117" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_061mz9g_di" bpmnElement="Flow_061mz9g">
+        <di:waypoint x="630" y="117" />
+        <di:waypoint x="680" y="117" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0smuae0_di" bpmnElement="Flow_0smuae0">
+        <di:waypoint x="215" y="117" />
+        <di:waypoint x="250" y="117" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="Event_1s8vjby_di" bpmnElement="StartEvent_1">
+        <dc:Bounds x="179" y="99" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1p6i7zj_di" bpmnElement="Activity_1p6i7zj">
+        <dc:Bounds x="250" y="77" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0cd95y7_di" bpmnElement="Activity_0cd95y7">
+        <dc:Bounds x="390" y="77" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1b29j3x_di" bpmnElement="Activity_1b29j3x">
+        <dc:Bounds x="530" y="77" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1hewiu8_di" bpmnElement="Activity_1hewiu8">
+        <dc:Bounds x="680" y="77" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_0icsmm2_di" bpmnElement="Event_0icsmm2">
+        <dc:Bounds x="962" y="99" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1bz4zki_di" bpmnElement="Activity_1bz4zki">
+        <dc:Bounds x="810" y="77" width="100" height="80" />
+      </bpmndi:BPMNShape>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>

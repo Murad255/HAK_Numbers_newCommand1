@@ -1,0 +1,22 @@
+
+  spring:
+    datasource:
+      url: jdbc:h2:file:./target/h2db/db/HospitalBPMN;DB_CLOSE_DELAY=-1
+      username: demo
+      password: demo
+      driver-class: org.h2.Driver
+    h2:
+      console:
+        enabled: true
+        path: /h2
+    jpa:
+      hibernate:
+        ddl-auto: update
+  camunda:
+    bpm:
+      admin-user:
+          id: demo
+          password: demo
+          first-name: firstDemo
+          last-name: lastDemo
+          email: info@reunico.com

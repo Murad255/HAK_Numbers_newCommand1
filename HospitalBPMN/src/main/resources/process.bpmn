@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="Definitions_0fr9mxs" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="4.9.0">
+  <bpmn:message id="Message_0g2g5tq" name="Message_Start" />
+  <bpmn:process id="HospitalBPMN-mainProcess" isExecutable="true">
+    <bpmn:laneSet id="LaneSet_0jnw2se" />
+    <bpmn:serviceTask id="say-hello" name="Настройка конфогураций" camunda:delegateExpression="${configProcess}">
+      <bpmn:incoming>SequenceFlow_1fp17al</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_16gzt2m</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:startEvent id="StartEvent_1">
+      <bpmn:outgoing>SequenceFlow_1fp17al</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:sequenceFlow id="SequenceFlow_1fp17al" sourceRef="StartEvent_1" targetRef="say-hello" />
+    <bpmn:sequenceFlow id="SequenceFlow_16gzt2m" sourceRef="say-hello" targetRef="Activity_1kpuowx" />
+    <bpmn:userTask id="Activity_1kpuowx" name="Начать обработку запросов">
+      <bpmn:incoming>SequenceFlow_16gzt2m</bpmn:incoming>
+    </bpmn:userTask>
+  </bpmn:process>
+  <bpmn:message id="Message_1hyafum" name="Message_1qhui2b" />
+  <bpmn:message id="Message_0d452db" name="Message_0chi4b1" />
+  <bpmn:message id="Message_1a0zkzn" name="Message_3arve7i" />
+  <bpmn:error id="Error_04aiw07" name="Error_3dk5948" />
+  <bpmn:message id="Message_03f0tfp" name="Message_1t33vhd" />
+  <bpmn:message id="Message_0sx8ibb" name="Message_2mklldj" />
+  <bpmn:message id="Message_0f3zzdb" name="Message_1pkpsp6" />
+  <bpmn:message id="Message_17i44zk" name="StartMessage" />
+  <bpmn:message id="Message_14x7br3" name="StopMessage" />
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="HospitalBPMN-mainProcess">
+      <bpmndi:BPMNEdge id="SequenceFlow_16gzt2m_di" bpmnElement="SequenceFlow_16gzt2m">
+        <di:waypoint x="330" y="117" />
+        <di:waypoint x="370" y="117" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="SequenceFlow_1fp17al_di" bpmnElement="SequenceFlow_1fp17al">
+        <di:waypoint x="188" y="117" />
+        <di:waypoint x="230" y="117" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="Activity_0gq5wc0_di" bpmnElement="say-hello">
+        <dc:Bounds x="230" y="77" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="_BPMNShape_StartEvent_2" bpmnElement="StartEvent_1">
+        <dc:Bounds x="152" y="99" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0zpfndn_di" bpmnElement="Activity_1kpuowx">
+        <dc:Bounds x="370" y="77" width="100" height="80" />
+      </bpmndi:BPMNShape>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>
