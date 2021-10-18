@@ -4,50 +4,42 @@
 #include <BLEServer.h>
 #include <BLEUtils.h>
 #include <BLE2902.h>
-/*********
-  Руи Сантос
-  Более подробно о проекте на: http://randomnerdtutorials.com  
-*********/
 
 #include <BLEDevice.h>
 #include <BLEServer.h>
 #include <BLEUtils.h>
 #include <BLE2902.h>
 
-// по умолчанию температура будет в градусах Цельсия;
-// закомментируйте строчку ниже, если вам нужны градусы Фаренгейта:
 #define temperatureCelsius
 
 // даем название BLE-серверу:
 #define bleServerName "dhtESP32"
 
-
-// для генерирования UUID можно воспользоваться этим сайтом:
-// https://www.uuidgenerator.net/
 #define SERVICE_UUID "91bad492-b950-4226-aa2b-4ede9fa42f59"
 
-  BLECharacteristic dhtTemperatureCelsiusCharacteristics("cba1d466-344c-4be3-ab3f-189f80dd7518", BLECharacteristic::PROPERTY_NOTIFY);
-  BLEDescriptor dhtTemperatureCelsiusDescriptor(BLEUUID((uint16_t)0x2902));
-
+BLECharacteristic dhtTemperatureCelsiusCharacteristics("cba1d466-344c-4be3-ab3f-189f80dd7518", BLECharacteristic::PROPERTY_NOTIFY);
+BLEDescriptor dhtTemperatureCelsiusDescriptor(BLEUUID((uint16_t)0x2902));
 
 BLECharacteristic dhtHumidityCharacteristics("ca73b3ba-39f6-4ab3-91ae-186dc9577d99", BLECharacteristic::PROPERTY_NOTIFY);
 BLEDescriptor dhtHumidityDescriptor(BLEUUID((uint16_t)0x2903));
 
-
 bool deviceConnected = false;
 
 // задаем функции обратного вызова onConnect() и onDisconnect():
-class MyServerCallbacks: public BLEServerCallbacks {
-  void onConnect(BLEServer* pServer) {
+class MyServerCallbacks : public BLEServerCallbacks
+{
+  void onConnect(BLEServer *pServer)
+  {
     deviceConnected = true;
   };
-  void onDisconnect(BLEServer* pServer) {
+  void onDisconnect(BLEServer *pServer)
+  {
     deviceConnected = false;
   }
 };
 
-void setup() {
-
+void setup()
+{
 
   // запускаем последовательную коммуникацию:
   Serial.begin(115200);
@@ -62,48 +54,48 @@ void setup() {
   // создаем BLE-сервис:
   BLEService *dhtService = pServer->createService(SERVICE_UUID);
 
-  // создаем BLE-характеристики и BLE-дескриптор: bluetooth.com/specifications/gatt/viewer?attributeXmlFile=org.bluetooth.descriptor.gatt.client_characteristic_configuration.xml       
+  // создаем BLE-характеристики и BLE-дескриптор: bluetooth.com/specifications/gatt/viewer?attributeXmlFile=org.bluetooth.descriptor.gatt.client_characteristic_configuration.xml
 
-    dhtService->addCharacteristic(&dhtTemperatureCelsiusCharacteristics);
-    dhtTemperatureCelsiusDescriptor.setValue("DHT temperature Celsius");
-                                         //  "Температура в Цельсиях"
-    dhtTemperatureCelsiusCharacteristics.addDescriptor(new BLE2902());
+  dhtService->addCharacteristic(&dhtTemperatureCelsiusCharacteristics);
+  dhtTemperatureCelsiusDescriptor.setValue("DHT temperature Celsius");
+  //  "Температура в Цельсиях"
+  dhtTemperatureCelsiusCharacteristics.addDescriptor(new BLE2902());
 
   dhtService->addCharacteristic(&dhtHumidityCharacteristics);
-  dhtHumidityDescriptor.setValue("DHT humidity"); 
-                             //  "Влажность"
+  dhtHumidityDescriptor.setValue("DHT humidity");
+  //  "Влажность"
   dhtHumidityCharacteristics.addDescriptor(new BLE2902());
-  
+
   // запускаем сервис:
   dhtService->start();
 
   // запускаем рассылку оповещений:
   pServer->getAdvertising()->start();
   Serial.println("Waiting a client connection to notify...");
-             //  "Ждем подключения клиента, чтобы отправить уведомление..."
+  //  "Ждем подключения клиента, чтобы отправить уведомление..."
 }
 
-void loop() {
-  if (deviceConnected) {
+void loop()
+{
+  if (deviceConnected)
+  {
     // считываем температуру в градусах Цельсия (по умолчанию):
-    float t  = 12.4;
+    float t = 12.4;
     // считываем влажность:
     float h = 12.4;
- 
- 
-    // отправляем уведомление о том,
-      static char temperatureCTemp[7];
-      dtostrf(t, 6, 2, temperatureCTemp);
-      // задаем значение для температурной характеристики (Цельсий)
-      // и отправляем уведомление подключенному клиенту:
-      dhtTemperatureCelsiusCharacteristics.setValue(temperatureCTemp);
-      dhtTemperatureCelsiusCharacteristics.notify();
-      Serial.print("Temperature Celsius: ");
-               //  "Температура в градусах Цельсия: "
-      Serial.print(t);
-      Serial.print(" *C");
 
-    
+    // отправляем уведомление о том,
+    static char temperatureCTemp[7];
+    dtostrf(t, 6, 2, temperatureCTemp);
+    // задаем значение для температурной характеристики (Цельсий)
+    // и отправляем уведомление подключенному клиенту:
+    dhtTemperatureCelsiusCharacteristics.setValue(temperatureCTemp);
+    dhtTemperatureCelsiusCharacteristics.notify();
+    Serial.print("Temperature Celsius: ");
+    //  "Температура в градусах Цельсия: "
+    Serial.print(t);
+    Serial.print(" *C");
+
     // отправляем уведомление о том,
     // что с датчика DHT считаны данные о влажности:
     static char humidityTemp[7];
@@ -111,12 +103,12 @@ void loop() {
     // задаем значение для влажностной характеристики
     // и отправляем уведомление подключенному клиенту:
     dhtHumidityCharacteristics.setValue(humidityTemp);
-    dhtHumidityCharacteristics.notify();   
+    dhtHumidityCharacteristics.notify();
     Serial.print(" - Humidity: ");
-             //  " - Влажность: "
+    //  " - Влажность: "
     Serial.print(h);
     Serial.println(" %");
-    
+
     delay(10000);
   }
 }
@@ -162,7 +154,6 @@ void loop() {
 //     }
 // };
 
-
 // void setup() {
 //   Serial.begin(9600);
 
@@ -181,7 +172,7 @@ void loop() {
 // 										CHARACTERISTIC_UUID_TX,
 // 										BLECharacteristic::PROPERTY_NOTIFY
 // 									);
-                      
+
 //   pTxCharacteristic->addDescriptor(new BLE2902());
 
 //   BLECharacteristic * pRxCharacteristic = pService->createCharacteristic(
@@ -225,7 +216,6 @@ void loop() {
 //     // Serial.println();
 //    // delay(100);
 // }
-
 
 // void BlincCount(int count, int time)
 // {
