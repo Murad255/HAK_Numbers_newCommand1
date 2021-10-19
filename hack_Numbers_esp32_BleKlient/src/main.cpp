@@ -1,8 +1,13 @@
+/*
+    программа для определения уровня сигнала BLE 
+    и отправки его на сервер
+*/
+
 #include <Arduino.h>
 
-#define WIFI_SSID "YOURAPSSID"
-#define WIFI_PASSWORD "YOURAPPASSWORD"
-#define POST_URL "http://YOURSERVERNAMEORIP:3000/"
+#define WIFI_SSID "Logo"
+#define WIFI_PASSWORD "040303b"
+#define POST_URL "http://192.168.250.40:3000/"
 #define SCAN_TIME 30     // seconds
 #define WAIT_WIFI_LOOP 5 // around 4 seconds for 1 loop
 #define SLEEP_TIME 300   // seconds
@@ -49,7 +54,7 @@ void setup()
 
   Serial.println("BLEDevice::init()");
   BLEDevice::init("");
-//с синтековским чипом
+  //с синтековским чипом
   // put your main code here, to run repeatedly:
   BLEScan *pBLEScan = BLEDevice::getScan(); //create new scan
   pBLEScan->setAdvertisedDeviceCallbacks(new MyAdvertisedDeviceCallbacks());

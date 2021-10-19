@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" id="Definitions_0q9nkpw" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="4.9.0">
-  <bpmn:process id="Process_Lift" isExecutable="true">
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" id="Definitions_0q9nkpw" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="4.6.0">
+  <bpmn:process id="Process_TestLift" isExecutable="true">
     <bpmn:startEvent id="StartEvent_1">
       <bpmn:outgoing>Flow_0smuae0</bpmn:outgoing>
       <bpmn:messageEventDefinition id="MessageEventDefinition_0n66hou" messageRef="Message_0yrydpk" />
@@ -42,30 +42,30 @@ execution.setVariable("liftLevel", "450");</bpmn:script>
   </bpmn:process>
   <bpmn:message id="Message_0yrydpk" name="Message_TestLift" />
   <bpmndi:BPMNDiagram id="BPMNDiagram_1">
-    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Process_Lift">
-      <bpmndi:BPMNEdge id="Flow_043sy7v_di" bpmnElement="Flow_043sy7v">
-        <di:waypoint x="910" y="117" />
-        <di:waypoint x="962" y="117" />
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Flow_0n3kcor_di" bpmnElement="Flow_0n3kcor">
-        <di:waypoint x="780" y="117" />
-        <di:waypoint x="810" y="117" />
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Flow_00u9jri_di" bpmnElement="Flow_00u9jri">
-        <di:waypoint x="490" y="117" />
-        <di:waypoint x="530" y="117" />
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Flow_0u3hoz1_di" bpmnElement="Flow_0u3hoz1">
-        <di:waypoint x="350" y="117" />
-        <di:waypoint x="390" y="117" />
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Process_TestLift">
+      <bpmndi:BPMNEdge id="Flow_0smuae0_di" bpmnElement="Flow_0smuae0">
+        <di:waypoint x="215" y="117" />
+        <di:waypoint x="250" y="117" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_061mz9g_di" bpmnElement="Flow_061mz9g">
         <di:waypoint x="630" y="117" />
         <di:waypoint x="680" y="117" />
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Flow_0smuae0_di" bpmnElement="Flow_0smuae0">
-        <di:waypoint x="215" y="117" />
-        <di:waypoint x="250" y="117" />
+      <bpmndi:BPMNEdge id="Flow_0u3hoz1_di" bpmnElement="Flow_0u3hoz1">
+        <di:waypoint x="350" y="117" />
+        <di:waypoint x="390" y="117" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_00u9jri_di" bpmnElement="Flow_00u9jri">
+        <di:waypoint x="490" y="117" />
+        <di:waypoint x="530" y="117" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0n3kcor_di" bpmnElement="Flow_0n3kcor">
+        <di:waypoint x="780" y="117" />
+        <di:waypoint x="810" y="117" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_043sy7v_di" bpmnElement="Flow_043sy7v">
+        <di:waypoint x="910" y="117" />
+        <di:waypoint x="962" y="117" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="Event_1s8vjby_di" bpmnElement="StartEvent_1">
         <dc:Bounds x="179" y="99" width="36" height="36" />
