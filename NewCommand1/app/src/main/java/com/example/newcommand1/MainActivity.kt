@@ -69,6 +69,76 @@ class MainActivity : AppCompatActivity() {
 //            }
 //        }
 //    }
+private fun initNavigation() {
+        navController = Navigation.findNavController(this, R.id.main_screen_container_fragment)
+        val navGraph = navController!!.navInflater.inflate(R.navigation.nav_main_screen)
+        //navController!!.setGraph(R.navigation.)
+
+        if (!PreferenceMaestro.isPremiumStatus){
+            when((0..10).random()){
+                0,1 -> {
+                    navGraph.startDestination = R.id.purchaseFragment;
+                }
+                else ->{
+                    navGraph.startDestination = R.id.mainFragmentOfApp;
+                }
+            }
+
+
+        }
+
+        navController!!.graph = navGraph;
+
+        bottomNavView.setupWithNavController(navController!!)
+    }
+
+    private fun firstLaunch() {
+        // will set low animation preferences if is old device. I think old device is API with version under 10 API
+        // API 28 = Android 9
+        if (Build.VERSION.SDK_INT <= 28){
+            PreferenceMaestro.isLightMode = true
+        }
+
+        if (PreferenceMaestro.isFirstStart) {
+
+            val intent = Intent(this, AddSolarStationActivity::class.java)
+            startActivity(intent)
+            finish()
+        }
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+        //.initBottomNav()
+
+    }
+
+    private fun manageBottomNavBar() {
+        val firstFragment = MainScreenFragment()
+        val secFragment = ToolsManagerFragment()
+        bottomNavView.setOnItemSelectedListener {
+            when(it.itemId){
+                R.id.MainScreenForecast -> {
+                    navController?.navigate(R.id.mainFragmentOfApp)
+                    //findNavController(R.id.main_screen_container_fragment).navigate(MainScreenFragmentDirections.actionMainFragmentToToolsManagerFragment())
+
+                }
+                R.id.ToolsScreen -> {
+                    navController?.navigate(R.id.tlMng)
+                    //findNavController(R.id.main_screen_container_fragment).navigate(ToolsManagerFragmentDirections.actionToolsManagerFragmentToMainFragment())
+
+                }
+
+                R.id.PurchaseScreen -> {
+                    navController?.navigate(R.id.purchaseFragment)
+                    //findNavController(R.id.main_screen_container_fragment).navigate(ToolsManagerFragmentDirections.actionToolsManagerFragmentToMainFragment())
+
+                }
+            }
+            true
+        }
+    }
 
     private val isLocationPermissionGranted
         get() = hasPermission(Manifest.permission.ACCESS_FINE_LOCATION)
