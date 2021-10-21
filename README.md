@@ -20,4 +20,4 @@
 
 ## Проект HospitalBPMN
 Проект серверного приложения с BPM системой Camunda BPMN для обработки данных с группировки локаторов и отправки их на Android приложение  NewCommand1 .
-Запускать в IntelliJ IDEA
+Запускать в IntelliJ IDEA..
