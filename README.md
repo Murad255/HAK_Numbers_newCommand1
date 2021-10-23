@@ -11,7 +11,7 @@
 Запускать с помошью VS Code с расширением Platform IO
 
 ## Проект NewCommand1
-Проект Android приложения с отображением BLE тега на карте. 
+Проект Android приложения с отображением BLE (Bluetooth 5.0)тега на карте. 
 Запускать в Android Studio
 
 ## Проект NewCommand2
